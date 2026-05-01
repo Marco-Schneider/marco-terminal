@@ -1,32 +1,137 @@
 ---
 import { SITE_TITLE } from '../consts';
 ---
+
 <nav class="nav">
-  <a href="/" class="nav-logo">{SITE_TITLE}</a>
-  <ul class="nav-links">
-    <li><a href="/#projects">Projects</a></li>
-    <li><a href="/blog">Blog</a></li>
-    <li><a href="/#about">About</a></li>
-    <li><a href="/#contact">Contact</a></li>
-  </ul>
+    <a href="/" class="nav-logo">{SITE_TITLE}</a>
+    <div class="nav-right">
+        <ul class="nav-links">
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <svg
+                id="icon-sun"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                ><circle cx="12" cy="12" r="5"></circle><line
+                    x1="12"
+                    y1="1"
+                    x2="12"
+                    y2="3"></line><line x1="12" y1="21" x2="12" y2="23"
+                ></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
+                ></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
+                ></line><line x1="1" y1="12" x2="3" y2="12"></line><line
+                    x1="21"
+                    y1="12"
+                    x2="23"
+                    y2="12"></line><line
+                    x1="4.22"
+                    y1="19.78"
+                    x2="5.64"
+                    y2="18.36"></line><line
+                    x1="18.36"
+                    y1="5.64"
+                    x2="19.78"
+                    y2="4.22"></line></svg
+            >
+            <svg
+                id="icon-moon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                ><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path></svg
+            >
+        </button>
+    </div>
 </nav>
 
+<script is:inline>
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (
+        saved === 'dark' ||
+        (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+        root.classList.add('dark');
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem(
+            'theme',
+            root.classList.contains('dark') ? 'dark' : 'light',
+        );
+        updateIcons();
+    });
+
+    function updateIcons() {
+        const isDark = root.classList.contains('dark');
+        document.getElementById('icon-sun').style.display = isDark
+            ? 'block'
+            : 'none';
+        document.getElementById('icon-moon').style.display = isDark
+            ? 'none'
+            : 'block';
+    }
+    updateIcons();
+</script>
+
 <style>
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .nav-logo { font-size: 15px; font-weight: 500; }
-  .nav-logo:hover { color: var(--teal-600); }
-  .nav-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-  .nav-links a:hover { color: var(--teal-600); }
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0;
+        border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .nav-logo:hover {
+        color: var(--teal-600);
+    }
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .nav-links {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+    .nav-links a:hover {
+        color: var(--teal-600);
+    }
+    #theme-toggle {
+        background: none;
+        border: 0.5px solid var(--border);
+        cursor: pointer;
+        color: var(--text-secondary);
+        padding: 6px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #theme-toggle:hover {
+        color: var(--teal-600);
+        border-color: var(--teal-100);
+    }
 </style>

@@ -10,8 +10,24 @@
     --text-secondary: #555;
     --text-muted: #999;
     --border: #e5e5e5;
-    --bg: #fff;
+    --bg: #ffffff;
     --bg-surface: #f9f9f9;
+}
+
+:root.dark {
+    --teal-50: #04342c;
+    --teal-100: #085041;
+    --teal-400: #1d9e75;
+    --teal-600: #5dcaa5;
+    --teal-800: #9fe1cb;
+    --teal-900: #e1f5ee;
+
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaa;
+    --text-muted: #666;
+    --border: #2a2a2a;
+    --bg: #111111;
+    --bg-surface: #1a1a1a;
 }
 
 *,
