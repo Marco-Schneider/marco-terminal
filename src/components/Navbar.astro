@@ -3,7 +3,10 @@ import { SITE_TITLE } from '../consts';
 ---
 
 <nav class="nav">
-    <a href="/" class="nav-logo">{SITE_TITLE}</a>
+    <div class="site-title-container">
+        <img src="/icons/terminal.png" alt="Terminal Icon" width="24px" id="terminal-icon" style="display: block;"/>
+        <a href="/" class="nav-logo">{SITE_TITLE}</a> 
+    </div>
     <div class="nav-right">
         <ul class="nav-links">
             <li><a href="/#projects">Projects</a></li>
@@ -79,12 +82,12 @@ import { SITE_TITLE } from '../consts';
 
     function updateIcons() {
         const isDark = root.classList.contains('dark');
-        document.getElementById('icon-sun').style.display = isDark
-            ? 'block'
-            : 'none';
-        document.getElementById('icon-moon').style.display = isDark
-            ? 'none'
-            : 'block';
+        document.getElementById('icon-sun').style.display = 
+            isDark  ? 'block' : 'none';
+        document.getElementById('icon-moon').style.display = 
+            isDark  ? 'none' : 'block';
+        document.getElementById('terminal-icon').style.filter = 
+            isDark ? 'brightness(0) invert(1)' : 'none';
     }
     updateIcons();
 </script>
@@ -118,6 +121,16 @@ import { SITE_TITLE } from '../consts';
     }
     .nav-links a:hover {
         color: var(--teal-600);
+    }
+    .site-title-container {
+        display: flex !important; 
+        justify-content: center; 
+        align-items: center; 
+        height: 24px; 
+        gap: 8px
+    }
+    .terminal-icon {
+        width: 24px;
     }
     #theme-toggle {
         background: none;
