@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+---
+
+<section class="section">
+    <p class="section-label">Latest posts</p>
+    <div class="posts">
+        {
+            posts.map((post) => (
+                <a href={`/blog/${post.id}`} class="post">
+                    <div class="post-left">
+                        <span class="cat">{post.data.category}</span>
+                        <span class="title">{post.data.title}</span>
+                    </div>
+                    <span class="date">
+                        {post.data.pubDate.toLocaleDateString('en-US', {
+                            month: 'short',
+                            year: 'numeric',
+                        })}
+                    </span>
+                </a>
+            ))
+        }
+    </div>
+    <a href="/blog" class="all-posts">All posts →</a>
+</section>
+
+<style>
+    .section {
+        padding: 40px 0;
+        border-bottom: 0.5px solid var(--border);
+    }
+    .section-label {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--teal-400);
+        margin-bottom: 18px;
+    }
+    .posts {
+        display: flex;
+        flex-direction: column;
+    }
+    .post {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 14px 0;
+        border-bottom: 0.5px solid var(--border);
+    }
+    .post:first-child {
+        border-top: 0.5px solid var(--border);
+    }
+    .post:hover .title {
+        color: var(--teal-600);
+    }
+    .post-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .cat {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        background: var(--teal-50);
+        color: var(--teal-800);
+        padding: 2px 8px;
+        border-radius: 99px;
+    }
+    .title {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .date {
+        font-size: 12px;
+        color: var(--text-muted);
+        white-space: nowrap;
+        padding-top: 2px;
+    }
+    .all-posts {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--teal-600);
+        font-weight: 500;
+    }
+    .all-posts:hover {
+        color: var(--teal-800);
+    }
+</style>

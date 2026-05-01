@@ -1,0 +1,47 @@
+---
+const skills = [
+    'React',
+    'TypeScript',
+    'Node.js',
+    'PostgreSQL',
+    'Docker',
+    'AWS',
+    'GraphQL',
+    'Prisma',
+    'Next.js',
+];
+---
+
+<section id="about" class="section">
+    <p class="section-label">Stack</p>
+    <div class="skills">
+        {skills.map((s) => <span class="skill">{s}</span>)}
+    </div>
+</section>
+
+<style>
+    .section {
+        padding: 40px 0;
+        border-bottom: 0.5px solid var(--border);
+    }
+    .section-label {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--teal-400);
+        margin-bottom: 18px;
+    }
+    .skills {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .skill {
+        font-size: 12px;
+        padding: 5px 14px;
+        border-radius: 99px;
+        border: 0.5px solid var(--teal-100);
+        color: var(--teal-800);
+    }
+</style>
